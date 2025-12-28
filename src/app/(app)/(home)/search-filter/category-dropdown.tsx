@@ -4,10 +4,10 @@ import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { useDropDownPosition } from "./use-dropdown-position";
 import { SubCategoryMenu } from "./SubCategoryMenu";
-import { CustomCategory } from "../types";
 import Link from "next/link";
+import { CategoriesGetManyOutput } from "@/modules/categories/types";
 interface Props{
-    category: CustomCategory;
+    category: CategoriesGetManyOutput[0];
     isActive?: boolean;
     isNavigationHovered?: boolean;
 }
@@ -28,13 +28,15 @@ isNavigationHovered
   const onMouseLeave = () => setIsOpen(false)
 
   //Potentially improve mobile
-  const toggleDropDown = () => {
-    if (category.subcategories?.docs?.length) {
-      setIsOpen(!open);
-    }
-  }
+  // const toggleDropDown = () => {
+  //   if (category.subcategories?.docs?.length) {
+  //     setIsOpen(!open);
+  //   }
+  // }
   return (
-    <div className="relative" ref={dropDownRef} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={toggleDropDown}>
+    <div className="relative" ref={dropDownRef} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}
+    //  onClick={toggleDropDown}
+    >
       <div className="relative">
       <Button variant="elevated"
         className={cn("h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black",isActive && !isNavigationHovered && "bg-white border-primary",isOPen && "bg-white border-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[4px] hover:-translate-y-[4px] ")}
