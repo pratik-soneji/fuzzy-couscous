@@ -1,42 +1,29 @@
-import configPromise from '@payload-config'
-import { getPayload } from 'payload' 
+
 import Footer from "./Footer";
 import { Navbar } from "./Navbar";
-import { SearchFilter } from "./search-filter";
-import { Category } from '@/payload-types';
-import { CustomCategory } from './types';
+import { SearchFilter, SearchFilterSkeleton } from "./search-filter";
+import { getQueryClient, trpc } from '@/trpc/server';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import { Suspense } from 'react';
 
 interface Props { 
   children: React.ReactNode;
 }
 const Layout =  async({ children }: Props) => {
-  const payload = await getPayload({
-    config: configPromise,
-  })
-  const data =await payload.find({
-    collection: 'categories',
-    depth:1,//Poppulate Categories here 0 means it will just give an id of references it has not whole the object
-    pagination: false,
-    where: {
-      parent: {
-        exists: false
-      }
-    },
-    sort: "name"
-  })
-
-  const formattedData : CustomCategory[]= data.docs.map((doc)=>({
-    ...doc,
-    subcategories: (doc.subcategories?.docs ?? []).map((subcategory)=>({...(subcategory as CustomCategory), subcategories: undefined}))
-    //Because of depth 1 we are confident that subcategory will be type of category
-  }))
-
-  
-  
+  const queryClient = getQueryClient();
+  void queryClient.prefetchQuery(
+    trpc.categories.getMany.queryOptions()
+  ) 
+  //THis above code is prefetch which means this server component prefetches before it goes to the client component
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar  /> 
-      <SearchFilter data={formattedData}/>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Suspense fallback={<SearchFilterSkeleton />}>
+          <SearchFilter />
+        </Suspense>
+      </HydrationBoundary>
+      
       <div className="flex-1 bg-[#f4f4f0]">{children}</div>
       <Footer/>
     </div>
