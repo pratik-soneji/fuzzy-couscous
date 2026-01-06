@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { NavbarSideBar } from './navbar-sidebar';
+import { useTRPC } from '@/trpc/client';
+import { useQuery } from '@tanstack/react-query';
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['700'],
@@ -38,6 +40,8 @@ const NavBarItems = [
   { href: '/contact', children: 'Contact' },
 ];
 export const Navbar = () => {
+  const trpc = useTRPC()
+  const session = useQuery(trpc.auth.session.queryOptions())
   const pathname = usePathname();
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   return (
@@ -51,6 +55,17 @@ export const Navbar = () => {
           <NavBarItem key={item.href} {...item} isActive={pathname === item.href} />
         ))}
       </div>
+      {session.data?.user ? (
+        <div className='hidden lg:flex'>
+          <Button
+          asChild
+          variant="secondary"
+          className="border-l border-t-0 border-b-0 border-r-0 px-12 h-full rounded-none bg-black hover:bg-pink-400 text-white   hover:text-black transition-colors  text-lg"
+        >
+          <Link href={'/admin'}>Dashboard</Link>
+        </Button>
+        </div>
+      ) : (
       <div className="hidden lg:flex">
         <Button
           asChild
@@ -67,6 +82,7 @@ export const Navbar = () => {
           <Link href={'/sign-up'}>Start Selling</Link>
         </Button>
       </div>
+      ) }
       <div className="flex lg:hidden items-center">
         <Button
           variant={'ghost'}
