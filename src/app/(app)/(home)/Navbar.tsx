@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { MenuIcon } from 'lucide-react';
 import { Poppins } from 'next/font/google';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
@@ -56,7 +57,7 @@ export const Navbar = () => {
           variant="secondary"
           className="border-l border-t-0 border-b-0 border-r-0 px-12 h-full rounded-none bg-white hover:bg-pink-400 transition-colors  text-lg"
         >
-          <Link href={'/sign-in'}>Log in</Link>
+          <Link href='/sign-in'>Log in</Link>
         </Button>
         <Button
           asChild
