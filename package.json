@@ -14,7 +14,7 @@
     "db:reset": "bun run db:fresh && bun run db:seed"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.1.1",
+    "@hookform/resolvers": "^5.2.2",
     "@payloadcms/db-mongodb": "^3.56.0",
     "@payloadcms/next": "^3.56.0",
     "@payloadcms/payload-cloud": "^3.56.0",
@@ -73,7 +73,7 @@
     "tailwind-merge": "^3.3.1",
     "undici": "^5.29.0",
     "vaul": "^1.1.2",
-    "zod": "3.24.2"
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
