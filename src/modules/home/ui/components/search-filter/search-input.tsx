@@ -35,7 +35,7 @@ export const SearchInput = ({disabled}:SearchInputProps) => {
                     variant={"elevated"}
                     >
                         <Link href={"/libaray"}>
-                            <BookMarkedIcon />
+                            <BookMarkedIcon /> Library
                         </Link>
                     </Button> 
                 ) 
