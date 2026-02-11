@@ -1,3 +1,4 @@
+
 import { getPayload } from "payload"
 import config from '@payload-config'
 const categories = [
@@ -5,6 +6,7 @@ const categories = [
       name: "All",
       slug: "all",
     },
+    
     { 
       name: "Business & Money",
       color: "#FFB347",
