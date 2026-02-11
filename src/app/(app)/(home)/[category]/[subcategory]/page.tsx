@@ -3,10 +3,16 @@ import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary, useQueryClient } from "@tanstack/react-query";
 import { Suspense } from "react";
 
-interface Props{
-    params: Promise<
-    {subcategory : string;}
-    >
+// interface Props{
+//     params: Promise<
+//     {subcategory : string;}
+//     >
+// }
+interface Props {
+  params: Promise<{
+    category: string;
+    subcategory: string;
+  }>;
 }
 const Page = async({ params }:Props) => {
   const { subcategory } = await params;

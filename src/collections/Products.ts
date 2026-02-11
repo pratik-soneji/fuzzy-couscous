@@ -16,6 +16,7 @@ export const Products : CollectionConfig = {
             name: "price",
             type:"number",
             required: true,
+            min:0,
             admin: {
                 description: "In US dollar"
             }
@@ -34,7 +35,7 @@ export const Products : CollectionConfig = {
         {
             name: "refundPolicy",
             type: "select",
-            options: ["30-days","14-days","7-days","3-days","1-days","no-refunds"],
+            options: ["30-days","14-days","7-days","3-days","1-day","no-refunds"],
             defaultValue: "30-days"
         }
     ]
