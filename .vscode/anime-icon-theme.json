@@ -1,0 +1,58 @@
+{
+  "name": "anime-icon-theme",
+  "iconDefinitions": {
+    "kasumi": { "iconPath": "./icons/bang_dream__51__kasumi__folder_by_rkasai14_dje07ip-375w-2x.png" },
+    "lisa": { "iconPath": "./icons/bang_dream__76__lisa__folder_by_rkasai14_dkuzq8i-375w-2x.png" },
+    "takagi": { "iconPath": "./icons/karakai_jouzu_no_takagi_san_3_by_rkasai14_dc3wfna-375w-2x.jpg" },
+    "mayonaka": { "iconPath": "./icons/mayonaka_heart_tune_1_folder_by_rkasai14_dl99t2q-375w-2x.png" },
+    "marin": { "iconPath": "./icons/sono_bisque_doll_wa_koi_wo_suru_11___folder_icon_by_khafaga007_din0x05-pre.png" },
+    "miki": { "iconPath": "./icons/the_idolm_ster_7__miki__folder_by_rkasai14_di1b77f-375w-2x.png" },
+    "fumika": { "iconPath": "./icons/the_idolm_ster_cinderella_girls_19__fumika__folder_by_rkasai14_dfwdaxo-375w-2x.png" },
+    "kako": { "iconPath": "./icons/the_idolm_ster_cinderella_girls_31__kako__folder_by_rkasai14_dg1cg2b-375w-2x.png" },
+    "arisu": { "iconPath": "./icons/the_idolm_ster_cinderella_girls_36a__arisu__folder_by_rkasai14_dgf9gh6-375w-2x.png" },
+    "rin": { "iconPath": "./icons/the_idolm_ster_cinderella_girls_37__rin__folder_by_rkasai14_dgg2vky-375w-2x.png" },
+    "amana": { "iconPath": "./icons/the_idolm_ster_shiny_colors_2b__amana__folder_by_rkasai14_dif2yhy-375w-2x.png" },
+    "java-file": { "iconPath": "./icons/java.png" },
+    "c-file": { "iconPath": "./icons/c.png" },
+    "ts-file": { "iconPath": "./icons/ts.png" },
+    "js-file": { "iconPath": "./icons/js.png" },
+    "tsx-file": { "iconPath": "./icons/tsx.png" },
+    "jsx-file": { "iconPath": "./icons/jsx.png" },
+    "extra-1": { "iconPath": "./icons/icon1.png" },
+    "extra-2": { "iconPath": "./icons/icon2.png" }
+  },
+  "folderNames": {
+    "src": "kasumi",
+    "components": "lisa",
+    "collections": "takagi",
+    "hooks": "mayonaka",
+    "lib": "marin",
+    "modules": "miki",
+    "trpc": "fumika",
+    "app": "kako",
+    "public": "arisu"
+  },
+  "folderNamesExpanded": {
+    "src": "kasumi",
+    "components": "lisa",
+    "collections": "takagi",
+    "hooks": "mayonaka",
+    "lib": "marin",
+    "modules": "miki",
+    "trpc": "fumika",
+    "app": "kako",
+    "public": "arisu"
+  },
+  "fileExtensions": {
+    "java": "java-file",
+    "c": "c-file",
+    "ts": "ts-file",
+    "js": "js-file",
+    "tsx": "tsx-file",
+    "jsx": "jsx-file"
+  },
+  "fileNames": {
+    "next.config.ts": "extra-1",
+    "tailwind.config.ts": "extra-2"
+  }
+}
