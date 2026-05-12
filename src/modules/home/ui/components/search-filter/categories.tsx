@@ -14,6 +14,7 @@ import { CustomCategory } from "./types";
 
 interface Props{
     data: CategoriesGetManyOutput;
+    
 }
 export const Categories = ({data }:Props) => {
     // console.log(data);    
