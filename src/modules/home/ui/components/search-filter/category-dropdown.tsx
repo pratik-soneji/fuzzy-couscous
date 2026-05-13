@@ -18,8 +18,7 @@ isNavigationHovered
 }:Props) => {
   const [isOPen, setIsOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
-  const { getDropDownPosition } = useDropDownPosition(dropDownRef)
-  const dropDownPosition = getDropDownPosition();
+   
   const onMouseEnter = () => {
     if (category.subcategories) {
       setIsOpen(true);
@@ -53,7 +52,6 @@ isNavigationHovered
       <SubCategoryMenu 
         category={category}
         isOpen={isOPen}
-        position={dropDownPosition}
       />
     </div>
   )

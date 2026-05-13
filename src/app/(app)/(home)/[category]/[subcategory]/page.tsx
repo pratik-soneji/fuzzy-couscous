@@ -1,3 +1,4 @@
+import { DEFAULT_LIMIT } from "@/constants";
 import { loadProductFilter } from "@/modules/products/hooks/searchParams";
 import { ProductListView } from "@/modules/products/ui/views/product-list-view";
 import { getQueryClient, trpc } from "@/trpc/server";
@@ -16,7 +17,7 @@ const Page = async ({ params, searchParams }: Props) => {
   const queryClient = getQueryClient()
   const filters = await loadProductFilter(searchParams)
 
-  void queryClient.prefetchQuery(trpc.products.getMany.queryOptions({ subcategory, ...filters }))
+  void queryClient.prefetchInfiniteQuery(trpc.products.getMany.infiniteQueryOptions({ category:  subcategory, ...filters, limit: DEFAULT_LIMIT }))
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
          <ProductListView category={subcategory}/>
