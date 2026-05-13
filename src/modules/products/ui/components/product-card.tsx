@@ -1,14 +1,17 @@
 
+import { generateTenantURL } from "@/lib/utils";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 interface ProductCardProps {
     id: string;
     name: string;
     imageUrl?: string | null;
-    authorUsername : string;
-    authorImageurl? : string | null;
+    tenantSlug : string;
+    tenantImageurl? : string | null;
     reviewRating: number; 
     reviewCount: number;
     price : number;
@@ -18,12 +21,19 @@ export const ProductCard = ({
     id,
     name,
     imageUrl,
-    authorUsername,
-    authorImageurl,
+    tenantSlug,
+    tenantImageurl,
     reviewRating,
     reviewCount,
     price
-}: ProductCardProps) => (
+}: ProductCardProps) => {
+    const router = useRouter();
+    const handleUserClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        e.stopPropagation()
+        router.push(generateTenantURL(tenantSlug))
+    }
+     return (
     <Link href={"/prducts/"+id}>
         <div className="hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border transition-shadow rounded-md bg-white overflow-hidden h-full flex flex-col">
             <div className="relative aspect-square">
@@ -38,17 +48,17 @@ export const ProductCard = ({
             <h2 className="text-lg font-medium line-clamp-4">
                 {name}
             </h2>
-            <div className="flex items-center gap-2 " onClick={()=>{}}>
-                {authorImageurl && (
+            <div className="flex items-center gap-2 " onClick={handleUserClick}>
+                {tenantImageurl && (
                     <Image 
-                    alt={authorUsername}
-                    src={authorImageurl}
+                    alt={tenantSlug}
+                    src={tenantImageurl}
                     width={16}
                     height={16}
-                    className="rounded-full border shrink-0 size-[16px]"
+                    className="rounded-full border shrink-0 size-[25px]"
                     />
                 )}
-                <p className="text-sm underline font-medium">{authorUsername}</p>
+                <p className="text-sm underline font-medium">{tenantSlug}</p>
             </div>
             {reviewCount > 0 && (
                 <div className="flex items-center gap-1">
@@ -72,7 +82,8 @@ export const ProductCard = ({
         </div>
         
     </Link>
-)
+    );
+}
 
 export const ProductCardSkeleton =()=>{
     return(
