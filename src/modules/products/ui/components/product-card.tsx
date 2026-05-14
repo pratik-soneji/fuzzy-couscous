@@ -1,4 +1,5 @@
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { formatCurrency, generateTenantURL } from "@/lib/utils";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
@@ -81,8 +82,18 @@ export const ProductCard = ({
     );
 }
 
-export const ProductCardSkeleton =()=>{
-    return(
-        <div className="w-full  bg-neutral-200 rounded-lg animate-pulse"></div>
-    )
-}
+export const ProductCardSkeleton = () => {
+    return (
+        <div className="border rounded-md bg-white overflow-hidden h-full flex flex-col">
+            <Skeleton className="relative aspect-square w-full rounded-none shrink-0" />
+            <div className="p-4 border-y flex flex-col gap-3 flex-1">
+                <Skeleton className="h-5 w-[85%]" />
+                <Skeleton className="h-4 w-[45%]" />
+                <Skeleton className="h-4 w-[30%]" />
+            </div>
+            <div className="p-4">
+                <Skeleton className="h-8 w-24" />
+            </div>
+        </div>
+    );
+};
