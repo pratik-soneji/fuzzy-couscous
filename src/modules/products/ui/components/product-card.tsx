@@ -1,5 +1,6 @@
 
-import { generateTenantURL } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
+import { formatCurrency, generateTenantURL } from "@/lib/utils";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,7 +35,7 @@ export const ProductCard = ({
         router.push(generateTenantURL(tenantSlug))
     }
      return (
-    <Link href={"/prducts/"+id}>
+    <Link href={`${generateTenantURL(tenantSlug)}/products/${id}`}>
         <div className="hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border transition-shadow rounded-md bg-white overflow-hidden h-full flex flex-col">
             <div className="relative aspect-square">
                 <Image 
@@ -60,33 +61,39 @@ export const ProductCard = ({
                 )}
                 <p className="text-sm underline font-medium">{tenantSlug}</p>
             </div>
-            {reviewCount > 0 && (
-                <div className="flex items-center gap-1">
+            {reviewCount > 0 && ( 
+                <div className="flex items-center g ap-1">
                     <StarIcon className="size-3.5 fill-black"/>
                     <p className="text-sm font-medium">{reviewRating} ({reviewCount})</p>
                 </div>
             )  }
         </div>
         <div className="p-4">
-            <div className="relative px-2 py-1 border bg-pink-400 w-fit">
+            <div className=" px-2 py-1 border bg-pink-400 w-fit">
                 <p className="text-sm font-medium">
-                    {new Intl.NumberFormat("en-US",{
-                        style: "currency",
-                        currency: "USD",
-                        maximumFractionDigits: 1
-                    }).format(Number(price))}
+                    {formatCurrency(price)} 
                 </p>
             </div>
-
         </div>
+        
         </div>
         
     </Link>
     );
 }
 
-export const ProductCardSkeleton =()=>{
-    return(
-        <div className="w-full  bg-neutral-200 rounded-lg animate-pulse"></div>
-    )
-}
+export const ProductCardSkeleton = () => {
+    return (
+        <div className="border rounded-md bg-white overflow-hidden h-full flex flex-col">
+            <Skeleton className="relative aspect-square w-full rounded-none shrink-0" />
+            <div className="p-4 border-y flex flex-col gap-3 flex-1">
+                <Skeleton className="h-5 w-[85%]" />
+                <Skeleton className="h-4 w-[45%]" />
+                <Skeleton className="h-4 w-[30%]" />
+            </div>
+            <div className="p-4">
+                <Skeleton className="h-8 w-24" />
+            </div>
+        </div>
+    );
+};
