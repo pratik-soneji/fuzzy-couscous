@@ -15,7 +15,7 @@ export const CartButton = ({ tenantSlug, productId }:Props) => {
     return(
         <Button 
         variant={"elevated"}
-        className={cn(`flex-1 bg-pink-400`,cart.isProductInCart(productId)?`bg-pink-200`:'')}
+        className={cn(`flex-1 bg-pink-400`,cart.isProductInCart(productId) && `bg-pink-200`)}
         onClick={()=>cart.toggleProduct(productId)}
         >
             {cart.isProductInCart(productId)? 

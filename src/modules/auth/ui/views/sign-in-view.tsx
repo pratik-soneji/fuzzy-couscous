@@ -24,11 +24,11 @@ export const SignInView = () => {
     const router = useRouter()
 
     const trpc = useTRPC();
-    const quertClient = useQueryClient()
+    const queryClient = useQueryClient()
     const login = useMutation(trpc.auth.login.mutationOptions({
         onError: (err)=>(toast.error(err.message)),
         onSuccess: async() => {
-            await quertClient.invalidateQueries(trpc.auth.session.queryFilter())
+            await queryClient.invalidateQueries(trpc.auth.session.queryFilter())
             router.push("/")
         }
     }));
