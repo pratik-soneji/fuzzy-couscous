@@ -1,9 +1,11 @@
-import { initTRPC } from '@trpc/server';
+import configPromise from '@payload-config';
+import { initTRPC, TRPCError } from '@trpc/server';
 import { getPayload } from 'payload';
-import configPromise from '@payload-config'
 import superjson from 'superjson';
-
+import { headers as getHeaders } from "next/headers"
+import next from 'next/dist/types';
 import { cache } from 'react';
+import { CarTaxiFront } from 'lucide-react';
 export const createTRPCContext = cache(async () => {
   /**
    * @see: https://trpc.io/docs/server/context
@@ -29,3 +31,24 @@ export const baseProcedure = t.procedure.use(async ({ next })=>{
   })
   return next({ ctx: { payload,  } });
 });
+
+export const protectedProcedure = baseProcedure.use(
+  async ({ ctx, next }) => { 
+  const headers = await getHeaders();
+  const session = await ctx.payload.auth({ headers })
+  if (!session.user) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "not authorised"
+    })
+  }
+  return next({
+    ctx: {
+      ...ctx,
+      session: {
+        ...session,
+        user: session.user
+      }
+    }
+  });
+})
