@@ -19,7 +19,7 @@ interface CheckoutViewProps {
 export const CheckoutView = ({ tenantSlug }: CheckoutViewProps) => {
   const router = useRouter();
   const [states, setStates] = useCheckoutStates();
-  const { productIds, removeProduct, clearAllCarts, clearCart } = useCart(tenantSlug);
+  const { productIds, removeProduct, clearCart } = useCart(tenantSlug);
   console.log(productIds);
 
   const trpc = useTRPC();
