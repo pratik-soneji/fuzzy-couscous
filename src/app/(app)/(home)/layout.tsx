@@ -5,7 +5,7 @@ import { SearchFilter, SearchFilterSkeleton } from "../../../modules/home/ui/com
 import { getQueryClient, trpc } from '@/trpc/server';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
-
+ 
 interface Props { 
   children: React.ReactNode;
 }

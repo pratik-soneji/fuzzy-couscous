@@ -15,6 +15,7 @@ import { Tenants } from './collections/Tenants'
 import { Products } from './collections/Products'
 import { Categories } from './collections/Categories'
 import { Orders } from './collections/Orders';
+import { Reviews } from './collections/Reviews';
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,7 +27,7 @@ admin: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Orders,Media, Categories, Products, Tags, Tenants],
+  collections: [Users, Reviews, Orders,Media, Categories, Products, Tags, Tenants],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
