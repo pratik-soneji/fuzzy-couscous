@@ -16,7 +16,10 @@ export const productsRouter = createTRPCRouter({
     const session = await ctx.payload.auth({headers})
     const product = await ctx.payload.findByID({
       collection: "products",
-      id: input.id
+      id: input.id,
+      select: {
+        content: false
+      }
     })
     let isPurchased = false
      if (session.user) {
@@ -170,7 +173,10 @@ export const productsRouter = createTRPCRouter({
       where,
       sort,
       page: input.cursor,
-      limit: input.limit
+      limit: input.limit,
+      select: {
+        content: false
+      }
     })
     const dataWithSummarisedReviews = await Promise.all(
       data.docs.map(async (doc) => { 
@@ -181,7 +187,7 @@ export const productsRouter = createTRPCRouter({
             product: {
               equals: doc.id
             }
-          }
+           }
         })  
         return {
           ...doc,
