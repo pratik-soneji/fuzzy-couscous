@@ -1,8 +1,6 @@
-import type { CollectionConfig } from 'payload'
-import { tenantsArrayField } from "@payloadcms/plugin-multi-tenant/fields";
 import { isSuperAdmin } from '@/lib/access';
-import { tr } from 'zod/v4/locales/index.js';
-import { use } from 'react';
+import { tenantsArrayField } from '@payloadcms/plugin-multi-tenant/fields';
+import type { CollectionConfig } from 'payload';
 
 const defaultTenantArrayField = tenantsArrayField({
   tenantsArrayFieldName: 'tenants',
@@ -26,41 +24,41 @@ export const Users: CollectionConfig = {
     read: () => true,
     create: ({ req }) => isSuperAdmin(req.user),
     delete: ({ req }) => isSuperAdmin(req.user),
-    update: ({ req, id }) => { 
+    update: ({ req, id }) => {
       if (isSuperAdmin(req.user)) return true;
-      return req.user?.id === id
-    }
+      return req.user?.id === id;
+    },
   },
   admin: {
     useAsTitle: 'email',
-    hidden: ({user}) => !isSuperAdmin(user)
+    hidden: ({ user }) => !isSuperAdmin(user),
   },
   auth: true,
   fields: [
     {
-      name: "username",
+      name: 'username',
       required: true,
       unique: true,
-      type: "text",
+      type: 'text',
     },
     {
       admin: {
-        position: "sidebar",
+        position: 'sidebar',
       },
-      name: "roles",
-      type: "select",
-      defaultValue: ["user"],
+      name: 'roles',
+      type: 'select',
+      defaultValue: ['user'],
       hasMany: true,
-      options: ["super-admin", "user"],
+      options: ['super-admin', 'user'],
       access: {
-        update: ({req})=> isSuperAdmin(req.user)
-      }
+        update: ({ req }) => isSuperAdmin(req.user),
+      },
     },
     {
       ...defaultTenantArrayField,
       admin: {
         ...(defaultTenantArrayField?.admin || {}),
-        position: "sidebar",
+        position: 'sidebar',
       },
     },
   ],

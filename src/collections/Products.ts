@@ -1,37 +1,21 @@
 import { isSuperAdmin } from '@/lib/access';
-import { Tenant } from '@/payload-types';
-import { CollectionConfig } from 'payload';
+import type { CollectionConfig } from 'payload';
 
 export const Products: CollectionConfig = {
   slug: 'products',
   access: {
-    create: ({ req }) => {
-      if (isSuperAdmin(req.user)) return true;
+    // create: ({ req }) => {
+    //   if (isSuperAdmin(req.user)) return true;
 
-      const tenant = req.user?.tenants?.[0]?.tenant as Tenant;
+    //   const tenant = req.user?.tenants?.[0]?.tenant as Tenant;
 
-      return Boolean(tenant?.stripeDetailsSubmitted);
-    },
+    //   return Boolean(tenant?.stripeDetailsSubmitted);
+    // },
+    create: ({ req }) => Boolean(req.user),
+    delete: ({ req }) => isSuperAdmin(req.user),
   },
   admin: {
     useAsTitle: 'name',
-  },
-  // This hook handles the auto-assignment for the field injected by the plugin
-  hooks: {
-    beforeValidate: [
-      ({ data, req, operation }) => {
-        if (operation === 'create' && !data.tenant) {
-          const userTenant = req.user?.tenants?.[0]?.tenant;
-          if (userTenant) {
-            return {
-              ...data,
-              tenant: typeof userTenant === 'object' ? userTenant.id : userTenant,
-            };
-          }
-        }
-        return data;
-      },
-    ],
   },
   fields: [
     {
@@ -41,14 +25,15 @@ export const Products: CollectionConfig = {
     },
     {
       name: 'description',
-      type: 'text',
+      // TODO: Change to RichText
+      type: 'richText',
     },
     {
       name: 'price',
       type: 'number',
       required: true,
       admin: {
-        description: 'In US dollar',
+        description: 'Price in USD',
       },
     },
     {
@@ -69,21 +54,42 @@ export const Products: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'cover',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       name: 'refundPolicy',
       type: 'select',
-      options: ['30-days', '14-days', '7-days', '3-days', '1-days', 'no-refunds'],
-      defaultValue: '30-days',
+      options: ['30-day', '14-day', '7-day', '3-day', '1-day', 'no-refunds'],
+      defaultValue: '30-day',
     },
     {
       name: 'content',
       // TODO: Change to RichText
-      type: 'textarea',
+      type: 'richText',
       admin: {
         description:
           'Protected content only visible to customers after purchase. Add product documentation, downloadable files, getting started guides, and bonus materials. Supports Markdown formatting',
       },
     },
-    // DO NOT add the 'tenant' field here.
-    // The multiTenantPlugin adds it automatically because of your config.
+    {
+      name: 'isArchived',
+      label: 'Archive',
+      defaultValue: false,
+      type: 'checkbox',
+      admin: {
+        description: 'If checked, this product will be archived',
+      },
+    },
+    {
+      name: 'isPrivate',
+      label: 'Private',
+      defaultValue: false,
+      type: 'checkbox',
+      admin: {
+        description: 'If checked, this product will be not shown on the public storefront',
+      },
+    },
   ],
 };
