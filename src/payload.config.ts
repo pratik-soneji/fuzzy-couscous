@@ -49,7 +49,8 @@ admin: {
       tenantsArrayField: {
         includeDefaultField: false,
       },
-      userHasAccessToAllTenants: (user) => isSuperAdmin(user)
+      userHasAccessToAllTenants: (user) => isSuperAdmin(user),
+      
     }), 
     // storage-adapter-placeholder
   ],

@@ -32,7 +32,11 @@ export const checkoutRouter = createTRPCRouter({
               'tenant.slug': {
                 equals: input.tenantSlug,
               },
-            },
+            }, {
+              isArchived: {
+                not_equals: true
+              }
+            }
           ],
         },
       });
@@ -105,9 +109,18 @@ export const checkoutRouter = createTRPCRouter({
       const data = await ctx.payload.find({
         collection: 'products',
         where: {
-          id: {
-            in: input.ids,
-          },
+          and: [
+            {
+              id: {
+                in: input.ids,
+              },
+            },
+            {
+              isArchived: {
+                not_equals: true
+              }
+            }
+          ],
         },
       });
       if (data.totalDocs !== input.ids.length) {
