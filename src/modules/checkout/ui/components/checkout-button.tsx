@@ -22,15 +22,18 @@ export const CheckoutButton = ({
     }
 
   return (
-    <Button
-    variant={"elevated"}
-    asChild
-    className={cn("bg-white", className)}
-    >
-        <Link href={`${generateTenantURL(tenantSlug)}/checkout`}>
-        <ShoppingCartIcon /> {totalItems > 0 ? totalItems : ""}
-        </Link>
-    </Button>
-  )
+    <>
+      <div className="flex items-end gap-3">
+        <Button variant={'elevated'} asChild>
+          <Link href={'/'}>Go Back</Link>
+        </Button>
+        <Button variant={'elevated'} asChild className={cn('bg-white', className)}>
+          <Link href={`${generateTenantURL(tenantSlug)}/checkout`}>
+            <ShoppingCartIcon /> {totalItems > 0 ? totalItems : ''}
+          </Link>
+        </Button>
+      </div>
+    </>
+  );
 }
 

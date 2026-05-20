@@ -3,7 +3,7 @@
 import { generateTenantURL } from '@/lib/utils';
 import { useTRPC } from '@/trpc/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { InboxIcon, LoaderIcon } from 'lucide-react';
+import { ArrowLeftIcon, InboxIcon, LoaderIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
@@ -12,6 +12,7 @@ import { useCheckoutStates } from '../../hooks/use-checkout-states';
 import CheckoutItem from '../components/checkout-item';
 import { CheckoutSidebar } from '../components/checkout.sidebar';
 import fa from 'zod/v4/locales/fa.cjs';
+import Link from 'next/link';
 
 interface CheckoutViewProps {
   tenantSlug: string;
@@ -73,6 +74,7 @@ export const CheckoutView = ({ tenantSlug }: CheckoutViewProps) => {
   if (data?.totalDocs === 0) {
     return (
       <div className="lg:pt-16 pt-4 px-4 lg:px-12">
+        
         <div className="border border-black border-dashed flex items-center justify-center p-8 flex-col gap-y-4 bg-white w-full rounded-lg">
           <InboxIcon />
           <p className="text-base font-medium">No products found</p>
